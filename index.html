@@ -1,0 +1,17 @@
+<!DOCTYPE html><html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body><h1>🎉 YOU'RE NOW AN ADMIN!</h1><h2 id="welcome"></h2>
+<p id="adminId"></p>
+<p id="link"></p><script>
+const params = new URLSearchParams(window.location.search);
+const admin = params.get("admin");
+
+if (admin) {
+    document.getElementById("welcome").innerHTML = "Welcome!";
+    document.getElementById("adminId").innerHTML = "Your Admin ID: " + admin;
+    document.getElementById("link").innerHTML = "Your Personal Link: " + window.location.href;
+}
+</script></body>
+</html>
