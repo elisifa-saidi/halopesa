@@ -1,8 +1,15 @@
 {
-  "name": "halopesa-bot",
+  "name": "halopesa-loan",
   "version": "1.0.0",
-  "main": "bot.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
-    "node-telegram-bot-api": "^0.61.0"
+    "axios": "^1.6.0",
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2"
+  }
+}
   }
 }
