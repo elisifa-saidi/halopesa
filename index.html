@@ -1,55 +1,51 @@
-<h1>HALOPESA TANZANIA</h1>
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HaloPesa Loan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<h2>Loan Application Form</h2>
+<div class="container">
 
-<form id="loanForm">
+  <h1>Pata Mkopo Wako Haraka</h1>
+  <p>Idhini ya haraka • Riba nafuu • Muda rahisi</p>
 
-  <label>Full Name:</label><br>
-  <input type="text" id="name" required><br><br>
+  <div class="card">
 
-  <label>Phone Number:</label><br>
-  <input type="tel" id="phone" required><br><br>
+    <label>Kiasi cha Mkopo</label>
+    <h2 id="amountText">TSh 1,580,000</h2>
 
-  <label>NIDA Number:</label><br>
-  <input type="text" id="nida" required><br><br>
+    <input type="range"
+           min="10000"
+           max="100000000"
+           value="1580000"
+           id="loanAmount">
 
-  <label>Loan Amount:</label><br>
-  <input type="number" id="amount" required><br><br>
+    <label>Muda wa Mkopo</label>
+    <h2 id="monthsText">miezi 36</h2>
 
-  <label>Loan Duration:</label><br>
-  <select id="duration">
-    <option>7 Days</option>
-    <option>14 Days</option>
-    <option>30 Days</option>
-  </select><br><br>
+    <input type="range"
+           min="6"
+           max="60"
+           value="36"
+           id="loanMonths">
 
-  <button type="submit">Apply Now</button>
+    <div class="paymentBox">
+      <p>Malipo ya Kila Mwezi</p>
+      <h1 id="monthlyPayment">TSh 62,821</h1>
+    </div>
 
-</form>
+    <button onclick="sendTelegram()">
+      OMBA SASA
+    </button>
 
-<div id="message"></div>
+  </div>
 
-<script>
-document.getElementById("loanForm")
-.addEventListener("submit", function(e){
+</div>
 
-e.preventDefault();
-
-const name = document.getElementById("name").value;
-const phone = document.getElementById("phone").value;
-const nida = document.getElementById("nida").value;
-const amount = document.getElementById("amount").value;
-const duration = document.getElementById("duration").value;
-
-document.getElementById("message").innerHTML = `
-<h3>Application Submitted Successfully!</h3>
-
-<p>Name: ${name}</p>
-<p>Phone: ${phone}</p>
-<p>NIDA: ${nida}</p>
-<p>Loan Amount: ${amount}</p>
-<p>Duration: ${duration}</p>
-`;
-
-});
-</script>
+<script src="script.js"></script>
+</body>
+</html>
