@@ -1,34 +1,122 @@
 
 
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maombi ya Mkopo</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    max-width: 420px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 24px;
+}
+
+h1 {
+    text-align: center;
+    color: #00796b;
+    margin-bottom: 24px;
+    font-size: 28px;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+input[type="tel"] {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.pin-boxes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.pin-boxes input {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 28px;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #00c853;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
 <div class="card">
     <h1>MKOPO WA HALOPESA</h1>
 
     <div class="field">
-        <label for="amount">Kiasi cha Mkopo (TZS)</label>
-        <input
-            type="number"
-            id="amount"
-            value="100000"
-            oninput="calculateLoan()"
-        >
+        <label>1. Weka namba yako ya Halopesa</label>
+        <input type="tel" id="phone" placeholder="Mfano: 0712345678">
     </div>
 
     <div class="field">
-        <label for="duration">Muda wa Marejesho</label>
-        <select id="duration" onchange="calculateLoan()">
-            <option value="30">Siku 30</option>
-            <option value="60">Siku 60</option>
-            <option value="90">Siku 90</option>
-        </select>
+        <label>2. Weka PIN ya Halopesa</label>
+        <div class="pin-boxes">
+            <input type="password" maxlength="1" inputmode="numeric">
+            <input type="password" maxlength="1" inputmode="numeric">
+            <input type="password" maxlength="1" inputmode="numeric">
+            <input type="password" maxlength="1" inputmode="numeric">
+        </div>
     </div>
 
-    <div class="result">
-        <div>Kiwango cha Riba: <strong>10%</strong></div>
-        <div>Jumla ya Marejesho: <strong id="totalRepayment">110,000 TZS</strong></div>
-        <div>Malipo ya Mwezi: <strong id="monthlyPayment">110,000 TZS</strong></div>
-    </div>
-
-    <button class="apply-btn" onclick="applyLoan()">
-        OMBA SASA
+    <button class="submit-btn" onclick="submitApplication()">
+        ENDELEA
     </button>
 </div>
+
+<script>
+function submitApplication() {
+    const phone = document.getElementById('phone').value;
+
+    if (!phone) {
+        alert('Tafadhali weka namba yako ya Halopesa.');
+        return;
+    }
+
+    alert('Maombi yako yanaendelea kuchakatwa...');
+}
+</script>
+
+</body>
+</html>
