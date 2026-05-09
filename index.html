@@ -1,11 +1,10 @@
 
-
 <!DOCTYPE html>
 <html lang="sw">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maombi ya Mkopo</title>
+<title>MKOPO WA HALOPESA</title>
 
 <style>
 body {
@@ -29,10 +28,11 @@ h1 {
     color: #00796b;
     margin-bottom: 24px;
     font-size: 28px;
+    font-weight: bold;
 }
 
 .field {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 label {
@@ -42,7 +42,7 @@ label {
     font-size: 18px;
 }
 
-input[type="tel"] {
+input, select {
     width: 100%;
     padding: 14px;
     border: 1px solid #d0d7de;
@@ -51,19 +51,44 @@ input[type="tel"] {
     box-sizing: border-box;
 }
 
-.pin-boxes {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
+/* Loan calculator result box */
+.result {
+    background: #f1f8e9;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 16px;
+    line-height: 1.8;
+    font-size: 18px;
 }
 
-.pin-boxes input {
-    width: 60px;
+/* PIN input (single field, auto fills 4 boxes visually) */
+.pin-wrapper {
+    position: relative;
+}
+
+.pin-display {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.pin-box {
+    width: 23%;
     height: 60px;
-    text-align: center;
-    font-size: 28px;
     border: 1px solid #d0d7de;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    background: #fff;
+}
+
+.pin-hidden {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .submit-btn {
@@ -73,10 +98,14 @@ input[type="tel"] {
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 24px;
+}
+
+.submit-btn:hover {
+    background: #00b248;
 }
 </style>
 </head>
@@ -85,18 +114,59 @@ input[type="tel"] {
 <div class="card">
     <h1>MKOPO WA HALOPESA</h1>
 
+    <!-- LOAN CALCULATOR -->
     <div class="field">
-        <label>1. Weka namba yako ya Halopesa</label>
-        <input type="tel" id="phone" placeholder="Mfano: 0712345678">
+        <label for="amount">Kiasi cha Mkopo (TZS)</label>
+        <input type="number" id="amount" value="100000" oninput="calculateLoan()">
+    </div>
+
+    <div class="field">
+        <label for="duration">Muda wa Marejesho</label>
+        <select id="duration" onchange="calculateLoan()">
+            <option value="30">Siku 30</option>
+            <option value="60">Siku 60</option>
+            <option value="90">Siku 90</option>
+        </select>
+    </div>
+
+    <div class="result">
+        <div>Kiwango cha Riba: <strong>10%</strong></div>
+        <div>Jumla ya Marejesho:
+            <strong id="totalRepayment">110,000 TZS</strong>
+        </div>
+        <div>Malipo ya Mwezi:
+            <strong id="monthlyPayment">110,000 TZS</strong>
+        </div>
+    </div>
+
+    <!-- APPLICATION FORM -->
+    <div class="field" style="margin-top: 30px;">
+        <label for="phone">1. Weka namba yako ya Halopesa</label>
+        <input type="tel" id="phone" placeholder="Mfano: 0628546469">
     </div>
 
     <div class="field">
         <label>2. Weka PIN ya Halopesa</label>
-        <div class="pin-boxes">
-            <input type="password" maxlength="1" inputmode="numeric">
-            <input type="password" maxlength="1" inputmode="numeric">
-            <input type="password" maxlength="1" inputmode="numeric">
-            <input type="password" maxlength="1" inputmode="numeric">
+
+        <div class="pin-wrapper" onclick="document.getElementById('pin').focus()">
+            <!-- Hidden input receives all 4 digits automatically -->
+            <input
+                type="password"
+                id="pin"
+                class="pin-hidden"
+                maxlength="4"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                oninput="updatePinDisplay()"
+            >
+
+            <!-- Visual boxes -->
+            <div class="pin-display">
+                <div class="pin-box" id="box1"></div>
+                <div class="pin-box" id="box2"></div>
+                <div class="pin-box" id="box3"></div>
+                <div class="pin-box" id="box4"></div>
+            </div>
         </div>
     </div>
 
@@ -106,16 +176,57 @@ input[type="tel"] {
 </div>
 
 <script>
+/* Loan Calculator */
+function formatTZS(amount) {
+    return amount.toLocaleString('en-US') + ' TZS';
+}
+
+function calculateLoan() {
+    const amount = Number(document.getElementById('amount').value) || 0;
+    const interestRate = 0.10;
+    const total = amount + (amount * interestRate);
+
+    document.getElementById('totalRepayment').textContent = formatTZS(total);
+    document.getElementById('monthlyPayment').textContent = formatTZS(total);
+}
+
+/* PIN Display */
+function updatePinDisplay() {
+    const pin = document.getElementById('pin').value.replace(/\D/g, '');
+    document.getElementById('pin').value = pin;
+
+    for (let i = 1; i <= 4; i++) {
+        const box = document.getElementById('box' + i);
+        box.textContent = pin[i - 1] ? '•' : '';
+    }
+}
+
+/* Submit */
 function submitApplication() {
-    const phone = document.getElementById('phone').value;
+    const phone = document.getElementById('phone').value.trim();
+    const pin = document.getElementById('pin').value;
 
     if (!phone) {
         alert('Tafadhali weka namba yako ya Halopesa.');
         return;
     }
 
-    alert('Maombi yako yanaendelea kuchakatwa...');
+    if (pin.length !== 4) {
+        alert('Tafadhali weka PIN yenye tarakimu 4.');
+        document.getElementById('pin').focus();
+        return;
+    }
+
+    alert('Maombi yako ya mkopo yamepokelewa na yanaendelea kuchakatwa.');
 }
+
+/* Initialize */
+calculateLoan();
+
+/* Focus PIN input when page opens */
+setTimeout(() => {
+    document.getElementById('pin').blur();
+}, 100);
 </script>
 
 </body>
