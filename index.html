@@ -1,51 +1,45 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HaloPesa Loan</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Loan Application</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { display: block; margin: 10px 0; padding: 10px; width: 300px; }
+    .box { border: 1px solid #ccc; padding: 15px; width: 350px; }
+  </style>
 </head>
 <body>
 
-<div class="container">
+<div class="box">
 
-  <h1>Pata Mkopo Wako Haraka</h1>
-  <p>Idhini ya haraka • Riba nafuu • Muda rahisi</p>
+  <h2>Loan Calculator</h2>
 
-  <div class="card">
+  <input id="amount" type="number" placeholder="Loan Amount">
+  <input id="rate" type="number" placeholder="Interest Rate (%)">
+  <input id="months" type="number" placeholder="Months">
 
-    <label>Kiasi cha Mkopo</label>
-    <h2 id="amountText">TSh 1,580,000</h2>
+  <button onclick="calculateLoan()">Calculate</button>
 
-    <input type="range"
-           min="10000"
-           max="100000000"
-           value="1580000"
-           id="loanAmount">
+  <p id="result"></p>
 
-    <label>Muda wa Mkopo</label>
-    <h2 id="monthsText">miezi 36</h2>
+  <hr>
 
-    <input type="range"
-           min="6"
-           max="60"
-           value="36"
-           id="loanMonths">
+  <h2>Client Form</h2>
 
-    <div class="paymentBox">
-      <p>Malipo ya Kila Mwezi</p>
-      <h1 id="monthlyPayment">TSh 62,821</h1>
-    </div>
+  <input id="name" type="text" placeholder="Full Name">
+  <input id="email" type="email" placeholder="Email">
+  <input id="phone" type="text" placeholder="Phone Number">
 
-    <button onclick="sendTelegram()">
+  <!-- ONLY OMBA SASA BUTTON -->
+  <a id="ombaBtn" target="_blank">
+    <button style="background: green; color: white;">
       OMBA SASA
     </button>
-
-  </div>
+  </a>
 
 </div>
 
-<script src="script.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>
