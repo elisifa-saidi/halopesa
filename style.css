@@ -1,44 +1,155 @@
+
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
 body{
-  font-family: Arial;
-  background:#f3f3f3;
-  padding:20px;
+  background:#f2f2f2;
 }
 
-.container{
-  max-width:500px;
+/* TOPBAR */
+.topbar{
+  background:#d62d00;
+  color:white;
+  padding:18px;
+  display:flex;
+  align-items:center;
+}
+
+.menu{
+  font-size:30px;
+}
+
+.logo{
   margin:auto;
-  background:white;
-  padding:20px;
-  border-radius:20px;
+  font-size:34px;
+  font-weight:bold;
 }
 
-h1{
-  text-align:center;
+.orange{
+  color:white;
+}
+
+.yellow{
+  color:#ffcc00;
+}
+
+/* CONTAINER */
+.container{
+  padding:20px;
 }
 
 .card{
-  padding:20px;
+  background:white;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-input[type=range]{
-  width:100%;
-  margin:20px 0;
+.card h1{
+  font-size:38px;
+  margin-bottom:10px;
 }
 
-.paymentBox{
-  background:#fafafa;
-  padding:20px;
+.subtitle{
+  color:gray;
+  margin-bottom:30px;
+}
+
+.loan-box{
+  border:1px solid #ddd;
   border-radius:15px;
-  margin-top:20px;
+  padding:20px;
 }
 
-button{
+.label-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:#ff6600;
+}
+
+.range-labels{
+  display:flex;
+  justify-content:space-between;
+  color:gray;
+  margin-bottom:20px;
+}
+
+.payment-box{
+  margin-top:20px;
+  border:1px solid #ddd;
+  border-radius:15px;
+  padding:20px;
+}
+
+.payment-box p{
+  color:gray;
+  margin-bottom:10px;
+}
+
+.payment-box h2{
+  color:#ff6600;
+  font-size:42px;
+}
+
+.apply-btn,
+.submit-btn{
   width:100%;
   padding:18px;
   border:none;
   border-radius:12px;
-  background:orange;
+  background:linear-gradient(to right,#ff6600,#ff9900);
   color:white;
-  font-size:20px;
-  margin-top:20px;
+  font-size:22px;
+  font-weight:bold;
+  margin-top:25px;
+  cursor:pointer;
+}
+
+/* FORM PAGE */
+.form-container{
+  display:none;
+  padding:20px;
+}
+
+.form-card{
+  background:white;
+  border-radius:20px;
+  padding:25px;
+}
+
+.step{
+  color:gray;
+  margin-bottom:20px;
+}
+
+form label{
+  display:block;
+  margin-top:18px;
+  margin-bottom:8px;
+  font-size:18px;
+}
+
+form input,
+form select,
+form textarea{
+  width:100%;
+  padding:16px;
+  border:1px solid #ccc;
+  border-radius:12px;
+  font-size:18px;
+}
+
+textarea{
+  height:120px;
 }
