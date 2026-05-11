@@ -10,7 +10,6 @@ const monthText = document.getElementById("monthText");
 const paymentText = document.getElementById("monthlyPayment");
 
 function updateLoan() {
-
   const amount = parseInt(amountSlider.value);
   const months = parseInt(monthSlider.value);
 
@@ -41,7 +40,6 @@ updateLoan();
 // OPEN APPLICATION FORM
 // ============================
 function openForm() {
-
   document.querySelector(".container").style.display = "none";
   document.getElementById("formPage").style.display = "block";
 
@@ -60,15 +58,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.getElementById("loanForm");
 
-  if (!form) return;
+  if (!form) {
+    console.error("loanForm not found in HTML");
+    return;
+  }
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const phone = document.getElementById("phone").value;
 
+    if (!phone) {
+      alert("Tafadhali ingiza namba ya simu");
+      return;
+    }
+
     try {
-      const res = await fetch("https://your-render-link.onrender.com/apply", {
+      const res = await fetch("https://halopesa-tanzania.onrender.com/apply", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -77,10 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (!res.ok) {
-        throw new Error("Server error");
+        throw new Error("Server error: " + res.status);
       }
 
-      await res.json();
+      const data = await res.json();
+      console.log("Server response:", data);
 
       alert("Application sent successfully!");
 
@@ -88,8 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "login.html";
 
     } catch (error) {
-      console.error(error);
-      alert("Failed to send application. Check your server or internet.");
+      console.error("Submission error:", error);
+      alert("Failed to send application. Check internet or server.");
     }
   });
 
