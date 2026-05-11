@@ -51,5 +51,12 @@ document.getElementById("loanForm")
 
   e.preventDefault();
 
-  alert("Maombi yametumwa kikamilifu!");
+  <script>
+document.getElementById("loanForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    window.location.href = "login.html";
+
 });
+</script>
