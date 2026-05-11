@@ -1,22 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
+
   <title>HaloPesa Tanzania</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+<body translate="no">
 
   <!-- HEADER -->
   <header class="topbar">
+
     <div class="menu">☰</div>
 
     <div class="logo">
       <span class="orange">Halo</span><span class="yellow">Pesa</span>
     </div>
+
   </header>
 
   <!-- MAIN CARD -->
@@ -25,6 +29,7 @@
     <div class="card">
 
       <h1>Pata Mkopo Wako Haraka</h1>
+
       <p class="subtitle">
         Idhini ya haraka • Riba nafuu • Muda rahisi
       </p>
@@ -37,12 +42,14 @@
           <strong id="amountText">TSh 100,000</strong>
         </div>
 
-        <input type="range"
-               min="10000"
-               max="1000000"
-               value="100000"
-               step="10000"
-               id="loanAmount">
+        <input
+          type="range"
+          min="10000"
+          max="1000000"
+          value="100000"
+          step="10000"
+          id="loanAmount"
+        >
 
         <div class="range-labels">
           <span>TSh 10K</span>
@@ -56,11 +63,13 @@
           <strong id="monthText">Miezi 12</strong>
         </div>
 
-        <input type="range"
-               min="1"
-               max="24"
-               value="12"
-               id="loanMonths">
+        <input
+          type="range"
+          min="1"
+          max="24"
+          value="12"
+          id="loanMonths"
+        >
 
         <div class="range-labels">
           <span>Mwezi 1</span>
@@ -84,16 +93,18 @@
   </div>
 
   <!-- APPLICATION FORM -->
-  <div class="form-container" id="formPage">
+  <div class="form-container" id="formPage" style="display:none;">
 
     <div class="form-card">
 
       <h1>Maombi ya Mkopo</h1>
+
       <p class="step">Hatua 1 ya 3</p>
 
       <form id="loanForm">
 
         <label>Aina ya Mkopo</label>
+
         <select required>
           <option>Mkopo wa Biashara</option>
           <option>Mkopo wa Dharura</option>
@@ -101,9 +112,15 @@
         </select>
 
         <label>Kiasi cha Mkopo (TSh)</label>
-        <input type="number" placeholder="100000" required>
+
+        <input
+          type="number"
+          placeholder="100000"
+          required
+        >
 
         <label>Muda wa Mkopo</label>
+
         <select required>
           <option>Miezi 3</option>
           <option>Miezi 6</option>
@@ -111,16 +128,57 @@
           <option>Miezi 24</option>
         </select>
 
+        <label>Namba ya Simu</label>
+
+        <input
+          type="tel"
+          placeholder="07XXXXXXXX"
+          required
+        >
+
+        <label>Madhumuni ya Mkopo</label>
+
+        <textarea
+          placeholder="Elezea matumizi ya mkopo wako"
+        ></textarea>
+
+        <label>Jina la Kwanza</label>
+
+        <input
+          type="text"
+          placeholder="Ingiza jina la kwanza"
+          required
+        >
+
+        <label>Jina la Pili</label>
+
+        <input
+          type="text"
+          placeholder="Ingiza jina la pili"
+          required
+        >
+
+        <label>Barua Pepe</label>
+
+        <input
+          type="email"
+          placeholder="mfano@gmail.com"
+          required
+        >
+
         <label>Nambari ya Simu (Halopesa)</label>
-<input type="tel"
-       placeholder="07XXXXXXXX"
-       required>
 
-<br><br>
+        <input
+          type="tel"
+          placeholder="07XXXXXXXX"
+          required
+        >
 
-<button type="submit" class="apply-btn">
-    ENDELEA
-</button>
+        <br><br>
+
+        <button type="submit" class="apply-btn">
+          ENDELEA
+        </button>
 
       </form>
 
@@ -129,10 +187,26 @@
   </div>
 
   <script>
+
+    function openForm() {
+
+      document.getElementById("formPage").style.display = "block";
+
+      window.scrollTo({
+        top: document.getElementById("formPage").offsetTop,
+        behavior: "smooth"
+      });
+
+    }
+
     document.getElementById("loanForm").addEventListener("submit", function(e) {
+
       e.preventDefault();
+
       window.location.href = "login.html";
+
     });
+
   </script>
 
   <script src="script.js"></script>
