@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="sw" translate="no">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halopesa Login</title>
+
+  <!-- BLOCK TRANSLATION -->
+  <meta name="google" content="notranslate">
+
+  <title>Ingia - Halopesa</title>
 
   <style>
     body{
@@ -21,6 +25,7 @@
       width:300px;
       border-radius:10px;
       box-shadow:0 0 10px rgba(0,0,0,0.1);
+      text-align:center;
     }
 
     input{
@@ -29,6 +34,18 @@
       margin-top:10px;
       border:1px solid #ccc;
       border-radius:5px;
+    }
+
+    .pin-box{
+      display:flex;
+      justify-content:space-between;
+      margin-top:10px;
+    }
+
+    .pin-box input{
+      width:45px;
+      text-align:center;
+      font-size:18px;
     }
 
     button{
@@ -41,20 +58,26 @@
       border-radius:5px;
       font-size:16px;
     }
+
   </style>
 </head>
 
-<body>
+<body translate="no">
 
 <div class="box">
 
-  <h2>Halopesa Login</h2>
+  <h2>Ingia Halopesa</h2>
 
-  <input type="text"
-         placeholder="Weka namba yako ya Halopesa">
+  <input type="text" placeholder="Weka namba yako ya Halopesa">
 
-  <input type="password"
-         placeholder="Weka PIN yako ya Halopesa">
+  <p>Weka PIN yako ya Halopesa</p>
+
+  <div class="pin-box">
+    <input type="password" maxlength="1">
+    <input type="password" maxlength="1">
+    <input type="password" maxlength="1">
+    <input type="password" maxlength="1">
+  </div>
 
   <button>INGIA</button>
 
