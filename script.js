@@ -21,11 +21,10 @@ function updateLoan() {
   monthText.innerText = "Miezi " + months;
 
   // INTEREST CALCULATION
-  const interest = 0.14;
-  const total = amount + (amount * interest);
+  const interestRate = 0.14;
+  const total = amount + (amount * interestRate);
   const monthly = total / months;
 
-  // DISPLAY MONTHLY PAYMENT
   paymentText.innerText = "TSh " + Math.round(monthly).toLocaleString();
 }
 
@@ -55,36 +54,43 @@ function openForm() {
 
 //
 // ============================
-// FORM SUBMIT (SEND TO TELEGRAM + REDIRECT)
+// FORM SUBMIT (SEND TO BACKEND + TELEGRAM)
 // ============================
-document.getElementById("loanForm").addEventListener("submit", function (e) {
+document.addEventListener("DOMContentLoaded", function () {
 
-  e.preventDefault();
+  const form = document.getElementById("loanForm");
 
-  // GET USER INPUT
-  const phone = document.getElementById("phone").value;
+  if (!form) return;
 
-  // SEND TO BACKEND (Render server → Telegram bot)
-  fetch("https://your-render-link.onrender.com/apply", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      phone: phone
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    alert("Application sent successfully!");
+    const phone = document.getElementById("phone").value;
 
-    // REDIRECT AFTER SUCCESS
-    window.location.href = "login.html";
+    try {
+      const res = await fetch("https://your-render-link.onrender.com/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ phone })
+      });
 
-  })
-  .catch(err => {
-    alert("Error sending application. Try again.");
+      if (!res.ok) {
+        throw new Error("Server error");
+      }
+
+      await res.json();
+
+      alert("Application sent successfully!");
+
+      // Redirect AFTER success
+      window.location.href = "login.html";
+
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send application. Check your server or internet.");
+    }
   });
 
 });
